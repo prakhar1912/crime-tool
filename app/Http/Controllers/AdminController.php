@@ -22,20 +22,6 @@ class AdminController extends Controller
         return view('panel.admin.stations');
     }
 
-    public function getAllStations(){
-        $stations = Station::all();
-
-        $response = array();
-        foreach ($stations as $station) {
-            $temp = array(
-                'id' => $station->id,
-                'station' => $station->station
-            );
-            array_push($response, json_encode($temp));
-        }
-        return json_encode($response);
-    }
-
     public function addNewstation(Request $request){
         $station = Station::create([
             'station' => $request['name']
@@ -64,12 +50,11 @@ class AdminController extends Controller
     }
 
     public function getAllUsers(){
-        $you = auth()->user();
-        $users = User::where('email','!=',$you->email)->get();
+        $users = User::where('role_id','!=','1')->get();
 
         $response = array();
         foreach ($users as $user) {
-            if($user->role->role == 'admin'){
+            if($user->role->role == 'director'){
                 $temp = array(
                     'id' => $user->id,
                     'name' => $user->name,
@@ -123,14 +108,16 @@ class AdminController extends Controller
     public function createNewAdmin(Request $request){
         $this->validate($request,[
             'name'=>'required',
+            'username' => 'required|unique:users',
             'email'=>'required|unique:users|email',
-            'phone'=>'required|digits:10',
+            'phone'=>'required',
             'role'=>'required',
             'password' => 'required|min:6|confirmed',
         ]);
 
         $newAdmin = User::create([
             'name'=>$request['name'],
+            'username'=>$request['username'],
             'email'=>$request['email'],
             'phone'=>$request['phone'],
             'password'=>bcrypt($request['password']),
@@ -144,5 +131,17 @@ class AdminController extends Controller
             );
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function showReport(){
+        $allCrimes = Crime::all();
+        $crimes = array();
+
+        foreach($allCrimes as $crime){
+            if($crime->cases->count()){
+                array_push($crimes, $crime);
+            }
+        }
+        return view('panel.admin.report')->withCrimes($crimes);
     }
 }

@@ -8,7 +8,8 @@ use App\Crime;
 class CommanderController extends Controller
 {
     public function show(){
-    	return view('panel.commander.home');
+        $crimes = Crime::all();
+    	return view('panel.commander.home')->withCrimes($crimes);
     }
 
     public function addCrimeNumber($id, Request $request){

@@ -79,11 +79,7 @@
 					{
 						role: 'director',
 						checked: false
-					},
-					{
-						role: 'admin',
-						checked: false
-					},
+					}
 				]
 			}
 		},
@@ -101,7 +97,7 @@
 			});
 			$.ajax({
 				method: 'POST',
-				url: '/home/admin/stations'
+				url: '/home/stations'
 			}).done(response=>{
 				var stations = JSON.parse(response);
 				stations.forEach(station=>{
@@ -153,8 +149,6 @@
 						filters.roles.push(role.role);
 					}
 				});
-
-				console.log(filters);
 				this.users.forEach(user=>{
 					if(filters.stations.length || filters.roles.length){
 						user.show=false;

@@ -55,9 +55,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name'=>'required',
+            'username' => 'required|unique:users',
             'email'=>'required|unique:users|email',
-            'phone'=>'required|digits:10',
-            'station'=>'required',
+            'phone'=>'required',
             'role'=>'required',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -71,13 +71,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name'=>$data['name'],
-            'email'=>$data['email'],
-            'phone'=>$data['phone'],
-            'station_id'=>$data['station'],
-            'password'=>bcrypt($data['password']),
-            'role_id'=>$data['role']
-        ]);
+        if($data['role'] == 2){
+            return User::create([
+                'name'=>$data['name'],
+                'username'=>$data['username'],
+                'email'=>$data['email'],
+                'phone'=>$data['phone'],
+                'station_id'=>$data['station'],
+                'password'=>bcrypt($data['password']),
+                'role_id'=>$data['role']
+            ]);
+        } else {
+            return User::create([
+                'name'=>$data['name'],
+                'username'=>$data['username'],
+                'email'=>$data['email'],
+                'phone'=>$data['phone'],
+                'password'=>bcrypt($data['password']),
+                'role_id'=>$data['role']
+            ]);
+        }
     }
 }

@@ -47,3 +47,18 @@ $(window).ready(function(){
 		});
 	});
 });
+
+import Case from './components/Case.vue';
+import CasesPerStation from './components/CasesPerStation.vue';
+import AllCases from './components/AllCases.vue';
+import AllCommanders from './components/AllCommanders.vue';
+
+new Vue({
+	el: '#case',
+	components: {Case,CasesPerStation,AllCases,AllCommanders},
+	data(){
+		return{
+			
+		}
+	}
+});

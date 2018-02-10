@@ -12,6 +12,8 @@
 */
 Auth::routes();
 
+Route::post('login','LoginController@login');
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -20,10 +22,20 @@ Route::middleware(['auth'])->group(function(){
 	Route::prefix('home')->group(function(){
 		Route::get('/','PanelController@redirect');
 		
-		Route::post('crimes','PanelController@getAllCrimes');
-		Route::post('add-new','PanelController@addNewCrime');
-		Route::delete('crime/{id}','PanelController@deleteCrime');
-		Route::patch('crime/{id}','PanelController@editCrime');
+		Route::post('crimes','CrimeController@getAllCrimes');
+		Route::post('add-new','CrimeController@addNewCrime');
+		Route::delete('crime/{id}','CrimeController@deleteCrime');
+		Route::patch('crime/{id}','CrimeController@editCrime');
+
+		Route::post('case','ReportController@addNewCase');
+		Route::post('cases','ReportController@getAllCases');
+		Route::post('case/{case}/comments','ReportController@getAllComments');
+		Route::post('case/{case}/comment','ReportController@addNewComment');
+		Route::post('case/{case}','ReportController@getCaseDetails');
+		
+		Route::post('stations','StationController@getStations');
+		Route::post('stations/all','StationController@getAllStations');
+		Route::post('station/{station}/cases','StationController@getCases');
 
 		Route::middleware(['role:admin'])->group(function(){
 			Route::prefix('admin')->group(function(){
@@ -32,7 +44,6 @@ Route::middleware(['auth'])->group(function(){
 				Route::post('users','AdminController@getAllUsers');
 
 				Route::get('stations','AdminController@stations');
-				Route::post('stations','AdminController@getAllStations');
 				Route::post('station/add-new','AdminController@addNewStation');
 				Route::delete('station/{id}','AdminController@deleteStation');
 				Route::patch('station/{id}','AdminController@editStation');
@@ -42,6 +53,8 @@ Route::middleware(['auth'])->group(function(){
 
 				Route::get('new','AdminController@newAdmin');
 				Route::post('new','AdminController@createNewAdmin');
+
+				Route::get('report','AdminController@showReport');
 			});
 		});
 
@@ -55,6 +68,13 @@ Route::middleware(['auth'])->group(function(){
 		Route::middleware(['role:director'])->group(function(){
 			Route::prefix('director')->group(function(){
 				Route::get('/','DirectorController@show');
+				Route::get('crime/{crime}','DirectorController@showCases');
+				Route::get('case/{case}','DirectorController@showCase');
+				Route::get('stations','DirectorController@casesPerStation');
+				Route::get('cases','DirectorController@showAllCases');
+				Route::get('commanders','DirectorController@showAllCommanders');
+				Route::post('commanders/all','DirectorController@getAllCommanders');
+				Route::patch('commanders/{commander}','DirectorController@reassignCommander');
 			});
 		});
 	});

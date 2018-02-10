@@ -1,4 +1,4 @@
-@extends('panel.director.master')
+@extends('panel.admin.master')
 
 @section('main-content')
 	<div class="content-header">
@@ -23,17 +23,22 @@
 					<tr>
 						<th>Crime</th>
 						<th>Number</th>
-						<th>View Cases</th>
+						{{-- <th>View Cases</th> --}}
 					</tr>
 					@foreach($crimes as $crime)
 					<tr>
 						<td>{{ $crime->name }}</td>
 						<td>{{ $crime->cases->count() }}</td>
-						<td><a href="/home/director/crime/{{ $crime->id }}" class="btn btn-primary">View Cases</a></td>
+						{{-- <td><a href="/home/director/crime/{{ $crime->id }}" class="btn btn-primary">View Cases</a></td> --}}
 					</tr>
 					@endforeach
 				</table>
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+<script src="{{ asset('js/director.js') }}"></script>
 @endsection

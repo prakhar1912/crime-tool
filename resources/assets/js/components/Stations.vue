@@ -43,7 +43,7 @@
 		mounted(){
 			$.ajax({
 				method: 'POST',
-				url: '/home/admin/stations'
+				url: '/home/stations/all'
 			}).done(response=>{
 				var stations = JSON.parse(response);
 				stations.forEach(station=>{

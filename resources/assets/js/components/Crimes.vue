@@ -6,9 +6,6 @@
 				<input class="form-control" type="text" name="crime" v-model="name" placeholder="Enter a new crime" autofocus>
 			</div>
 			<div class="col-md-2">
-				<input class="form-control" type="text" name="number" v-model="number">
-			</div>
-			<div class="col-md-2">
 				<input type="submit" class="btn btn-primary" name="submit" value="Add" @click="addNew()">
 			</div>
 		</div>
@@ -19,9 +16,6 @@
 					<option disabled value="0">SELECT ONE</option>
                     <option v-for="crime in crimeOptions" :value="crime.id">{{ crime.name }}</option>
                 </select>
-			</div>
-			<div class="col-md-2">
-				<input class="form-control" type="text" name="number" v-model="number">
 			</div>
 			<div class="col-md-2">
 				<input type="submit" class="btn btn-primary" name="submit" value="Add" @click="addCrimeNumber()">
@@ -44,8 +38,7 @@
 					</td>
 
 					<td>
-						<p v-show="!crime.showEdit">{{ crime.number }}</p>
-						<input type="text" v-model="crime.number" v-show="crime.showEdit">
+						<p>{{ crime.number }}</p>
 					</td>
 
 					<td>
@@ -68,8 +61,7 @@
 				crimeOptions: [],
 				userRole: window.userRole,
 				id: '0',
-				name: '',
-				number: 0
+				name: ''
 			}
 		},
 		mounted(){
@@ -129,25 +121,22 @@
 			},
 			addNew(){
 				var name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
-				var number = this.number;
 				$.ajax({
 					method: 'POST',
 					url: '/home/add-new',
 					data:{
-						name: name,
-						number: number
+						name: name
 					}
 				}).done(response=>{
 					if(response){
 						var data = {
 							id: parseInt(response),
 							name: name,
-							number: number,
+							number: 0,
 							showEdit: false
 						};
 						this.crimes.push(data);
 						this.name = '';
-						this.number = 0;
 					}
 				});
 			},
@@ -162,13 +151,11 @@
 				this.crimes.forEach(crime=>{
 					if(crime.id == id){
 						var newName = crime.name;
-						var newNumber = crime.number;
 						$.ajax({
 							method: 'PATCH',
 							url: '/home/crime/'+id,
 							data:{
-								name: newName,
-								number: newNumber
+								name: newName
 							}
 						}).done(response=>{
 							if(response){

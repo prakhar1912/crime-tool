@@ -7,6 +7,8 @@
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 	<!-- Bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
 	<!-- Font Awesome -->
@@ -57,6 +59,7 @@
 </div>
 <!-- ./wrapper -->
 <script>
+	window.userName = '{{ auth()->user()->name }}';
 	window.userRole = '{{ auth()->user()->role->role }}';
 </script>
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>

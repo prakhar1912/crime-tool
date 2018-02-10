@@ -14,6 +14,7 @@
       <li><a href="/home/admin/users"><i class="fa fa-link"></i> <span>All Users</span></a></li>
       <li><a href="/home/admin/stations"><i class="fa fa-link"></i> <span>Commanding Stations</span></a></li>
       <li><a href="/home/admin/new"><i class="fa fa-link"></i> <span>Admins</span></a></li>
+      <li><a href="/home/admin/report"><i class="fa fa-link"></i> <span>View Report</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>

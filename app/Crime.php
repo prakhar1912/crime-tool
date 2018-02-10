@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Crime extends Model
 {
-    protected $fillable=['name','number'];
+    protected $fillable=['name'];
+
+    public function cases(){
+    	return $this->hasMany(Report::class);
+    }
 }

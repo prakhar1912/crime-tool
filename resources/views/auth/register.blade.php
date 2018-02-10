@@ -25,6 +25,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                            <label for="username" class="col-md-4 control-label">Username</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required>
+
+                                @if ($errors->has('username'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -57,7 +71,7 @@
                             <label for="role" class="col-md-4 control-label">Role</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="role">
+                                <select class="form-control" name="role" value="{{ old('role') }}">
                                     <option value="2">Commander</option>
                                     <option value="3">Director</option>
                                 </select>
@@ -70,11 +84,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('station') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('station') ? ' has-error' : '' }}" id="station-group">
                             <label for="station" class="col-md-4 control-label">Commanding Station</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="station">
+                                <select class="form-control" name="station" value="{{ old('station') }}">
                                     @foreach($stations as $station)
                                         <option value="{{ $station->id }}">{{ $station->station }}</option>
                                     @endforeach

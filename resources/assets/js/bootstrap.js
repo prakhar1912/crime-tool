@@ -11,6 +11,8 @@ window.$ = window.jQuery = require('jquery');
 
 window.Vue = require('vue');
 
+window.daterangepicker = require('daterangepicker');
+
 $.ajaxSetup({
     headers:
     { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }

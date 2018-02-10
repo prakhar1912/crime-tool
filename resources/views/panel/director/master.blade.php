@@ -10,7 +10,10 @@
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">Options</li>
-      <li class="active"><a href="/home/director"><i class="fa fa-link"></i> <span>View Report</span></a></li>
+      <li><a href="/home/director"><i class="fa fa-link"></i> <span>View Report</span></a></li>
+      <li><a href="/home/director/stations"><i class="fa fa-link"></i> <span>View Cases by Station</span></a></li>
+      <li><a href="/home/director/cases"><i class="fa fa-link"></i> <span>View All Cases</span></a></li>
+      <li><a href="/home/director/commanders"><i class="fa fa-link"></i> <span>View All Commanders</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>

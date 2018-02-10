@@ -101,7 +101,18 @@
                 toastr.error("{{ Session::get('message') }}");
                 break;
         }
-      @endif
+        @endif
+
+        $(window).ready(function(){
+            $('select[name="role"]').on('change',function(){
+                var type = $('select[name="role"]').find(":selected").text();
+                if(type == 'Commander'){
+                    $('#station-group').show();
+                } else {
+                    $('#station-group').hide();
+                }
+            });
+        });
     </script>
 </body>
 </html>
